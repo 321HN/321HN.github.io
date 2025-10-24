@@ -1,0 +1,1381 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  
+</head>
+<style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  padding-top: 70px;
+  background-color: white;
+}
+
+/* ====== MENU SUPERIOR ====== */
+.menu {
+  background: linear-gradient(90deg,#34791d,#52bd2e);
+  padding: 10px 0;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+.scrolled {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  background: linear-gradient(90deg,#2c6619,#4aa626);
+}
+.alineacion-imra-logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  position: relative;
+}
+.alineacion-imra-logo a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: white;
+}
+.alineacion-logo img {
+  border-radius: 50%;
+  border: none;
+}
+
+/* ====== MENU OPCIONES ====== */
+.alineacion-menu {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.alineacion-menu li { position: relative; }
+.alineacion-menu a {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.alineacion-menu a:hover {
+  background-color: #81f25c;
+  color: #fff;
+}
+
+/* ====== SUBMENÚ ====== */
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%; left: 0;
+  background: white;
+  min-width: 220px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 999;
+}
+.submenu a {
+  color: #333;
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+}
+.submenu a:hover {
+  background: #65BD47;
+  color: white;
+}
+.alineacion-menu li.show-submenu .submenu { display: block; }
+.arrow { font-size: 0.7rem; transition: transform 0.3s ease; }
+.show-submenu > a .arrow { transform: rotate(180deg); }
+
+/* ====== BOTON CREDITOS ====== */
+.boton-creditos {
+  background-color: #81f25c;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+.boton-creditos a {
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  display: inline-block;
+}
+.boton-creditos:hover { background-color: #65BD47; }
+
+/* ====== HAMBURGUESA ====== */
+.hamburguesa {
+  display: none;
+  flex-direction: column;
+  justify-content: left;
+  cursor: pointer;
+  width: 30px;
+  height: 25px;
+  position: relative;
+  z-index: 1100;
+}
+.hamburguesa span {
+  height: 3px;
+  width: 100%;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+  position: absolute;
+}
+.hamburguesa span:nth-child(1) { top: 0; }
+.hamburguesa span:nth-child(2) { top: 10px; }
+.hamburguesa span:nth-child(3) { top: 20px; }
+.hamburguesa.active span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 10px;
+}
+.hamburguesa.active span:nth-child(2) { opacity: 0; }
+.hamburguesa.active span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 10px;
+}
+/* ====== FOOTER ====== */
+footer {
+  margin-top: 50px;
+  background: linear-gradient(90deg,#34791d,#52bd2e );
+  color: white;
+  padding: 40px 20px;
+}
+.footer-container {
+  display: flex;
+  justify-content: center;
+  gap: 250px;
+  max-width: 900px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.footer-logo img { width: 100px; }
+.logo-text {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.vertical-line {
+  width: 2px;
+  height: 100px;
+  background-color: white;
+}
+.vertical-ipmra {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: pre-line;
+  text-align: center;
+}
+.footer-contact ul { list-style: none; padding: 0; }
+.footer-contact h4 { 
+  margin-bottom: 15px;
+  font-size: 1.1rem; 
+  border-bottom: 2px solid white;
+  display: inline-block; 
+  padding-bottom: 5px; 
+}
+.footer-contact li { margin-bottom: 8px; }
+.footer-contact a {
+  text-decoration: none;
+  color:white;
+  font-size: 1.1rem;
+}
+.boton-facebook {
+  background-color: #81f25c;
+  padding: 3px 8px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+.boton-facebook:hover { background-color: #65BD47; }
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  padding-top: 15px;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 900px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+}
+@media (max-width: 768px) {
+  .alineacion-menu {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background: linear-gradient(90deg,#34791d,#52bd2e );
+    width: 100%;
+    border-radius: 8px;
+    animation: slideDown 0.4s ease forwards;
+    position: absolute;
+    top: 100%; /* Aparece debajo del nav */
+    left: 0;
+  }
+  .alineacion-menu.show {
+    display: flex;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hamburguesa { display: flex; }
+  .video-container h1 { font-size: 2.5rem; }
+  .video-container p { font-size: 1rem; padding: 0 15px; }
+  .institucion h2 { font-size: 2rem; }
+  .institucion p { font-size: 1rem; }
+} 
+:root{
+  --max-width:1200px;
+  --gap:14px;
+  --anim-dur:350ms;
+
+  /* Paleta principal (verdes) */
+  --brand-gradient-start: #34791d; /* verde principal */
+  --brand-gradient-end:   #52bd2e; /* verde secundario */
+  --green-dark:           #2c6619; /* hover / scrolled */
+  --green-mid:            #4aa626;
+
+  /* Acentos / highlights */
+  --lime-300:    #81f25c;
+  --accent-hover: #65BD47;
+
+  /* Neutros / fondos / texto */
+  --white:     #ffffff;
+  --bg:        #f6f8fb;   /* fondo general */
+  --bg-soft:   #f9f9f9;   /* secciones */
+  --card:      #ffffff;
+  --card-alt:  #f4f4f4;
+  --muted:     #5b6670;   /* texto secundario (ya lo tenías) */
+  --text-1:    #333333;
+  --text-2:    #444444;
+
+  /* Sombras / overlays */
+  --overlay-strong: rgba(0,0,0,0.25);
+  --shadow-1: rgba(0,0,0,0.15);
+  --shadow-2: rgba(0,0,0,0.20);
+  --shadow-accent: rgba(44,102,25,0.63); /* #2c6619a1 */
+
+  /* Compatibilidad con tu CSS previo */
+  --accent: var(--brand-gradient-start);
+  --badge-bg: rgba(255,255,255,0.95);
+  --badge-shadow: 0 6px 18px rgba(2,6,23,0.06);
+}
+
+/* Reset / base */
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  font-family:'Montserrat',system-ui,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text-1);
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Header / brand */
+header{
+  max-width:var(--max-width);
+  margin:18px auto 0;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+  width:56px;
+  height:56px;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--brand-gradient-start),var(--brand-gradient-end));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--white);
+  font-weight:700;
+  font-family:'Montserrat',sans-serif;
+}
+
+.brand h1{
+  margin:0;
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:0.5px;
+  color:var(--text-1);
+}
+
+.brand small{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:400;
+}
+
+/* HERO: full-width banner look */
+.hero-wrap {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.hero {
+  margin-top: -42px; /* si quieres que el hero cubra bajo el header; ajustar si no conviene */
+  position: relative;
+  width: 100%;
+  min-height: 70vh; /* buen equilibrio entre vista completa y no demasiado grande */
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12)),
+    url('Imagenes/El Campo.jpg') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 18px 50px var(--shadow-1);
+}
+
+/* Hero title — legible y responsive */
+.hero-title {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--white);
+  font-size: clamp(2rem, 6vw, 4.5rem); /* escala entre pantallas */
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  text-shadow: 0 14px 40px rgba(2,6,23,0.6);
+  font-weight:700;
+  max-width: 90%;
+}
+
+/* Mobile tweaks */
+@media (max-width: 700px) {
+  .hero {
+    min-height: 45vh;
+    margin-top: 0;
+  }
+  .hero-title { font-size: 2rem; letter-spacing:1px; }
+}
+
+/* Contenido principal */
+main{
+  max-width:var(--max-width);
+  margin:28px auto;
+  padding:0 20px 80px;
+}
+
+/* Controls / chips */
+.controls{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+
+.controls label{
+  color:var(--muted);
+  font-weight:600;
+}
+
+.controls select,
+.controls button{
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(15,23,36,0.06);
+  background:var(--card);
+  cursor:pointer;
+  font-weight:600;
+  font-family:'Montserrat',sans-serif;
+  color:var(--text-1);
+}
+
+.chips{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  max-width:70%;
+}
+
+.chip{
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid rgba(15,23,36,0.06);
+  background:var(--card);
+  cursor:pointer;
+  font-weight:500;
+  color:var(--text-1);
+}
+
+.chip.active{
+  background:linear-gradient(90deg,var(--brand-gradient-start),var(--brand-gradient-end));
+  color:var(--white);
+  border:none;
+  box-shadow:0 8px 28px rgba(11,95,255,0.08);
+  font-weight:600;
+}
+
+.counter{
+  margin-left:auto;
+  color:var(--muted);
+  font-weight:500;
+  font-size:14px;
+}
+
+/* Grid de tarjetas */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+  transition: all 300ms ease;
+}
+
+@media (max-width:1100px){ .grid{grid-template-columns: repeat(3,1fr);} }
+@media (max-width:780px){ .grid{grid-template-columns: repeat(2,1fr);} }
+@media (max-width:480px){ .grid{grid-template-columns: 1fr;} }
+
+/* Tarjeta */
+.card{
+  background:var(--card);
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+  cursor:pointer;
+  box-shadow:0 10px 30px var(--shadow-1);
+  transition: transform .28s ease, box-shadow .28s ease, opacity .28s ease;
+  will-change: transform, opacity;
+}
+
+.card::before{ content:""; display:block; padding-top:66.666%; }
+
+.card > img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition: transform .6s cubic-bezier(.2,.9,.26,1), filter .3s;
+}
+
+.caption{
+  position:absolute;
+  left:12px;
+  right:12px;
+  bottom:12px;
+  background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.36));
+  color:var(--white);
+  padding:8px 10px;
+  border-radius:8px;
+  font-weight:600;
+  font-size:14px;
+  backdrop-filter: blur(2px);
+}
+
+.card:hover{
+  transform: translateY(-6px);
+  box-shadow:0 20px 60px var(--shadow-2);
+}
+
+.card:hover img{ transform: scale(1.06); filter:brightness(1.02); }
+.card.hidden{ opacity:0; transform: scale(.98); pointer-events:none; }
+
+/* Category badge */
+.cat-badge{
+  position:absolute;
+  left:10px;
+  top:10px;
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--badge-bg);
+  box-shadow:var(--badge-shadow);
+  z-index:4;
+  transition:transform .22s ease, box-shadow .22s ease, background .22s;
+  border: 1px solid rgba(15,23,36,0.06);
+}
+
+.cat-badge svg{ width:20px; height:20px; display:block; }
+.cat-badge .label{
+  position:absolute;
+  left:56px;
+  top:50%;
+  transform:translateY(-50%) translateX(-6px);
+  background:rgba(2,6,23,0.85);
+  color:var(--white);
+  padding:6px 8px;
+  border-radius:8px;
+  font-size:13px;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s, transform .18s;
+  font-weight:500;
+}
+.cat-badge:hover .label{ opacity:1; transform:translateY(-50%) translateX(6px); pointer-events:auto; }
+
+/* Side panel */
+.side{
+  position:fixed;
+  right:-460px;
+  top:0;
+  width:420px;
+  height:100%;
+  background:var(--white);
+  box-shadow:-24px 0 60px var(--shadow-1);
+  z-index:1400;
+  transition:right .36s cubic-bezier(.2,.9,.3,1);
+  padding:18px;
+  overflow:auto;
+  border-left:1px solid rgba(15,23,36,0.04);
+  font-weight:400;
+}
+
+.side.open{ right:0 }
+.side .close{
+  position:absolute;
+  left:14px;
+  top:10px;
+  border:none;
+  background:transparent;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.side img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:10px;
+  box-shadow:0 12px 40px var(--shadow-1);
+}
+
+.side h3{
+  margin:12px 0 6px;
+  font-weight:700;
+  font-size:20px;
+  color:var(--text-1);
+}
+
+.side p{
+  color:var(--muted);
+  margin:0 0 8px;
+  font-weight:400;
+  line-height:1.45;
+}
+
+/* Overlay */
+.overlay-focus{
+  position:fixed;
+  inset:0;
+  background:rgba(2,6,23,0.45);
+  z-index:1350;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s;
+}
+
+.overlay-focus.show{ opacity:1; pointer-events:auto; }
+
+/* Viewer (imagen grande) */
+.viewer{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(2,6,23,0.8);
+  z-index:1600;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s;
+}
+
+.viewer.open{ opacity:1; pointer-events:auto; }
+.viewer img{
+  max-width:92%;
+  max-height:82vh;
+  border-radius:10px;
+  box-shadow:0 28px 80px rgba(2,6,23,0.6);
+}
+
+/* Focus states */
+.card:focus{ outline:3px solid rgba(11,95,255,0.12); transform:translateY(-6px); }
+.chip:focus{ outline:3px solid rgba(11,95,255,0.12); }
+
+.flip-anim { transition: transform var(--anim-dur) cubic-bezier(.2,.9,.26,1); }
+
+/* Small screens final adjustment */
+@media (max-width:480px){
+  .hero { min-height: 35vh; }
+  .hero-title { font-size: 1.6rem; padding: 8px 12px; }
+}
+</style>
+
+</head>
+<body>
+  <header>
+    <nav class="menu" id="menu">
+      <div class="alineacion-imra-logo">
+        <a href="inicio.html">
+          <span class="alineacion-logo"><img src="Imagenes/IMRA-logo.png" alt="logo" width="40px"></span>
+          <span class="alineacion-imra">IPMRA</span>
+        </a>
+        <!-- Hamburguesa -->
+        <div class="hamburguesa" id="hamburguesa">
+          <span></span><span></span><span></span>
+        </div>
+        <!-- Menú -->
+        <ul class="alineacion-menu" id="menu-opciones">
+          <li><a href="inicio.html">Inicio</a></li>
+          <li>
+            <a href="#">Nosotros <span class="arrow">▼</span></a>
+            <ul class="submenu">
+              <li><a href="nuestra-identidad.html">Nuestra Identidad</a></li>
+              <li><a href="departamentos.html">Departamentos</a></li>
+              <li><a href="maestros.html">Maestros</a></li>
+              <li><a href="instalaciones.html">Instalaciones</a></li>
+            </ul>
+          </li>
+          <li><a href="carreras.html">Oferta Academica</a></li>
+          <li><a href="matriculas.html">Matrículas</a></li>
+          <li class="boton-creditos"><a href="creditos.html">Créditos</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+<div class="hero-wrap" role="banner">
+  <div class="hero" role="img" aria-label="Imagen general del instituto">
+    <div class="hero-title">INSTALACIONES</div>
+  </div>
+</div>
+
+<main>
+  <section aria-labelledby="title">
+    <h2 id="title" style="margin:0 0 6px;font-family:'Montserrat',sans-serif">Recorrido por las áreas</h2>
+    <p style="color:var(--muted);margin: 0 0 12px">Haz clic en una foto para ver más información. Filtra por grupo usando los chips o el select.</p>
+
+    <div class="controls" role="toolbar" aria-label="Controles de filtro">
+      <label for="filterSelect">Filtrar por grupo:</label>
+      <select id="filterSelect" aria-label="Filtrar imágenes por grupo">
+        <option value="all">Todas</option>
+        <option value="oficinas">Oficinas Principales</option>
+        <option value="descanso">Áreas de Descanso y Recreación</option>
+        <option value="informatica">Área de Informática</option>
+        <option value="finanzas">Área de Finanzas</option>
+        <option value="modulos">Módulos</option>
+        <option value="agroforestal">Área de Agroforestal</option>
+        <option value="deportiva">Área Deportiva</option>
+        <option value="biblioteca">Biblioteca</option>
+        <option value="reunion">Espacios de Reunión</option>
+        <option value="talleres">Área de Talleres</option>
+      </select>
+
+      <div class="chips" role="tablist" aria-label="Filtrar rápido por grupo">
+        <button class="chip" data-area="all" aria-pressed="true">Todas</button>
+        <button class="chip" data-area="oficinas">Oficinas</button>
+        <button class="chip" data-area="descanso">Descanso / Recreación</button>
+        <button class="chip" data-area="informatica">Informática</button>
+        <button class="chip" data-area="finanzas">Finanzas</button>
+        <button class="chip" data-area="modulos">Módulos</button>
+        <button class="chip" data-area="agroforestal">Agroforestal</button>
+        <button class="chip" data-area="deportiva">Deportiva</button>
+        <button class="chip" data-area="biblioteca">Biblioteca</button>
+        <button class="chip" data-area="reunion">Reunión</button>
+        <button class="chip" data-area="talleres">Talleres</button>
+      </div>
+
+      <button id="clearFilter" title="Limpiar filtros" style="margin-left:6px">Limpiar</button>
+      <div class="counter" id="counter" aria-live="polite">Mostrando 24 de 24</div>
+    </div>
+
+    <div class="grid" id="grid" role="list" aria-live="polite">
+
+      <!-- Cada tarjeta tiene data-caption (título) y data-meta (descripción ampliada).
+           Asegúrate de que las imágenes con estos nombres existan en /Imagenes/*.jpg -->
+
+      <!-- Oficinas Principales -->
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="oficinas"
+               data-caption="Dirección y Subdirección"
+               data-meta="Funciones: Coordinación académica y administrativa del instituto.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.6"><path d="M3 12h18"/><path d="M12 3v18"/></svg><span class="label">Oficinas</span></div>
+        <img loading="lazy" src="Imagenes/Direccion y Subdireccion.jpg" alt="Dirección y Subdirección">
+        <div class="caption">Dirección y Subdirección</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="oficinas"
+               data-caption="Secretaría 1"
+               data-meta="Funciones: Atención al público, matrículas y trámite de documentos.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><path d="M3 7h18"/><path d="M7 7v14"/></svg><span class="label">Secretaría</span></div>
+        <img loading="lazy" src="Imagenes/Secretaria 1.jpg" alt="Secretaría 1">
+        <div class="caption">Secretaría 1</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="oficinas"
+               data-caption="Secretaría 2"
+               data-meta="Funciones: Soporte administrativo y atención de padres.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><path d="M3 7h18"/><path d="M7 7v14"/></svg><span class="label">Secretaría</span></div>
+        <img loading="lazy" src="Imagenes/Secretaria 2.jpg" alt="Secretaría 2">
+        <div class="caption">Secretaría 2</div>
+      </article>
+
+      <!-- Áreas de Descanso y Recreación -->
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="descanso"
+               data-caption="Área de Descanso 1"
+               data-meta="Descripción: Zona con bancas y sombra para descanso y estudio informal. Ideal para pausas entre clases.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/></svg><span class="label">Descanso</span></div>
+        <img loading="lazy" src="Imagenes/Area de Descanso 1.jpg" alt="Área de Descanso 1">
+        <div class="caption">Área de Descanso 1</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="descanso"
+               data-caption="Área de Descanso 2"
+               data-meta="Descripción: Espacio con murales conmemorativos de las carreras. Función: punto de encuentro y actividades culturales.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/></svg><span class="label">Descanso</span></div>
+        <img loading="lazy" src="Imagenes/Area de Descanso 2.jpg" alt="Área de Descanso 2">
+        <div class="caption">Área de Descanso 2</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="descanso"
+               data-caption="Área de Descanso 3"
+               data-meta="Descripción: Pequeña plazoleta para actividades estudiantiles y grupos. Ideal para clubes y reuniones informales.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/></svg><span class="label">Descanso</span></div>
+        <img loading="lazy" src="Imagenes/Area de Descanso 3.jpg" alt="Área de Descanso 3">
+        <div class="caption">Área de Descanso 3</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="descanso"
+               data-caption="Área de Descanso 4"
+               data-meta="Descripción: Zona de encuentro con sombra y vegetación. Uso: pausa y estudio al aire libre.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/></svg><span class="label">Descanso</span></div>
+        <img loading="lazy" src="Imagenes/Area de Descanso 4.jpg" alt="Área de Descanso 4">
+        <div class="caption">Área de Descanso 4</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="descanso"
+               data-caption="Área de Recreación — El Bosque"
+               data-meta="Descripción: Área verde amplia denominada 'El Bosque' para recreación, caminatas y eventos al aire libre. Perfecta para actividades ambientales.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><path d="M12 2l4 7h-8l4-7z"/></svg><span class="label">Recreación</span></div>
+        <img loading="lazy" src="Imagenes/Area de Recreacion-El Bosque.jpg" alt="Área de Recreación - El Bosque">
+        <div class="caption">Área de Recreación - El Bosque</div>
+      </article>
+
+      <!-- Área de Informática -->
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="informatica"
+               data-caption="Laboratorio de Informática 1"
+               data-meta="Descripción: Laboratorio equipado con estaciones PC para docencia y prácticas.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/></svg><span class="label">Informática</span></div>
+        <img loading="lazy" src="Imagenes/Laboratorio de Informatica 1.jpg" alt="Laboratorio de Informática 1">
+        <div class="caption">Laboratorio de Informática 1</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="informatica"
+               data-caption="Laboratorio de Informática 2"
+               data-meta="Descripción: Segundo laboratorio de informática, destinado a programación y redes.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/></svg><span class="label">Informática</span></div>
+        <img loading="lazy" src="Imagenes/Laboratorio de Informatica 2.jpg" alt="Laboratorio de Informática 2">
+        <div class="caption">Laboratorio de Informática 2</div>
+      </article>
+
+      <!-- Área de Finanzas -->
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="finanzas"
+               data-caption="Área de Finanzas"
+               data-meta="Funciones: Gestión presupuestaria, pagos y contabilidad del instituto. Acceso restringido al personal financiero.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.6"><path d="M3 3h18v18H3z"/></svg><span class="label">Finanzas</span></div>
+        <img loading="lazy" src="Imagenes/Area de Finanzas.jpg" alt="Área de Finanzas">
+        <div class="caption">Área de Finanzas</div>
+      </article>
+
+      <!-- Módulos -->
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="modulos"
+               data-caption="Módulo 1"
+               data-meta="Módulo docente con aulas para clases teóricas y prácticas.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/></svg><span class="label">Módulo</span></div>
+        <img loading="lazy" src="Imagenes/Modulo 1.jpg" alt="Módulo 1">
+        <div class="caption">Módulo 1</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="modulos"
+               data-caption="Módulo 2"
+               data-meta="Módulo con aulas especializadas, aquí se ubica el aula de Español según el plano.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/></svg><span class="label">Módulo</span></div>
+        <img loading="lazy" src="Imagenes/Modulo 2.jpg" alt="Módulo 2">
+        <div class="caption">Módulo 2</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="modulos"
+               data-caption="Módulo 3"
+               data-meta="Módulo 3 — contiene el laboratorio de informática 2 y aulas técnicas.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/></svg><span class="label">Módulo</span></div>
+        <img loading="lazy" src="Imagenes/Modulo 3.jpg" alt="Módulo 3">
+        <div class="caption">Módulo 3</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="modulos"
+               data-caption="Pasillo hacia Módulo 3"
+               data-meta="Pasillo principal que conecta las zonas académicas con el Módulo 3 y áreas técnicas.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.6"><path d="M3 12h18"/></svg><span class="label">Pasillo</span></div>
+        <img loading="lazy" src="Imagenes/Pasillo hacia Modulo 3.jpg" alt="Pasillo hacia Módulo 3">
+        <div class="caption">Pasillo hacia Módulo 3</div>
+      </article>
+
+      <!-- Agroforestal -->
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="agroforestal"
+               data-caption="Área de Agroforestal"
+               data-meta="Descripción: Zona práctica para actividades agroforestales y proyectos de campo. Uso: prácticas, investigación y cultivo demostrativo.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><path d="M12 2l4 7h-8l4-7z"/></svg><span class="label">Agroforestal</span></div>
+        <img loading="lazy" src="Imagenes/Area de Agroforestal.jpg" alt="Área de Agroforestal">
+        <div class="caption">Área de Agroforestal</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="agroforestal"
+               data-caption="El Galpón"
+               data-meta="Descripción: Estructura de almacenamiento y trabajo para materiales agrícolas y herramientas.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><path d="M3 12h18"/></svg><span class="label">Galpón</span></div>
+        <img loading="lazy" src="Imagenes/El Galpon.jpg" alt="El Galpón">
+        <div class="caption">El Galpón</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="agroforestal"
+               data-caption="El Galpón - Cultivo"
+               data-meta="Descripción: Sector dentro del galpón destinado a cultivos demostrativos y siembra experimental.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><path d="M12 2l4 7h-8l4-7z"/></svg><span class="label">Cultivo</span></div>
+        <img loading="lazy" src="Imagenes/El Galpon-Cultivo.jpg" alt="El Galpón - Cultivo">
+        <div class="caption">El Galpón - Cultivo</div>
+      </article>
+
+      <!-- Deportiva -->
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="deportiva"
+               data-caption="Área Deportiva"
+               data-meta="Descripción: Cancha polideportiva para fútbol, baloncesto y actividades físicas. Uso: clases de educación física y torneos.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.6"><circle cx="12" cy="12" r="9"/></svg><span class="label">Deportiva</span></div>
+        <img loading="lazy" src="Imagenes/Area Deportiva.jpg" alt="Área Deportiva">
+        <div class="caption">Área Deportiva</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="deportiva"
+               data-caption="El Campo"
+               data-meta="Descripción: Terreno exterior utilizado para prácticas agrícolas y eventos deportivos al aire libre.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.6"><path d="M2 12h20"/></svg><span class="label">Campo</span></div>
+        <img loading="lazy" src="Imagenes/El Campo.jpg" alt="El Campo">
+        <div class="caption">El Campo</div>
+      </article>
+
+      <!-- Biblioteca -->
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="biblioteca"
+               data-caption="Biblioteca"
+               data-meta="Descripción: Biblioteca central con colección de libros, salas de estudio individuales y áreas para investigación.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.6"><path d="M3 19.5A2.5 2.5 0 0 0 5.5 22H21"/></svg><span class="label">Biblioteca</span></div>
+        <img loading="lazy" src="Imagenes/Biblioteca.jpg" alt="Biblioteca">
+        <div class="caption">Biblioteca</div>
+      </article>
+
+      <!-- Espacios de reunión -->
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="reunion"
+               data-caption="Auditorio"
+               data-meta="Descripción: Auditorio para actos, presentaciones y conferencias. Equipamiento: escenario y sistema de sonido.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><path d="M2 12h20"/></svg><span class="label">Auditorio</span></div>
+        <img loading="lazy" src="Imagenes/Auditorio.jpg" alt="Auditorio">
+        <div class="caption">Auditorio</div>
+      </article>
+
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="reunion"
+               data-caption="Plaza Cívica"
+               data-meta="Descripción: Espacio central para ceremonias, actos cívicos y eventos de integración.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.6"><path d="M12 2v20"/></svg><span class="label">Plaza</span></div>
+        <img loading="lazy" src="Imagenes/Plaza Civica.jpg" alt="Plaza Cívica">
+        <div class="caption">Plaza Cívica</div>
+      </article>
+
+      <!-- Talleres -->
+      <article class="card flip-anim" role="listitem" tabindex="0"
+               data-area="talleres"
+               data-caption="Área de Talleres"
+               data-meta="Descripción: Conjunto de talleres técnicos (metales, hogar y agropecuaria). Uso: prácticas de formación técnica.">
+        <div class="cat-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0b8fff" stroke-width="1.6"><path d="M14.7 6.3a7 7 0 1 0 2 10.4L16 18l-2.6-2.6"/></svg><span class="label">Talleres</span></div>
+        <img loading="lazy" src="Imagenes/Area de Talleres.jpg" alt="Área de Talleres">
+        <div class="caption">Área de Talleres</div>
+      </article>
+
+    </div>
+
+  </section>
+</main>
+
+<div class="overlay-focus" id="overlay" aria-hidden="true"></div>
+
+<aside class="side" id="side" aria-hidden="true" role="complementary" aria-labelledby="sideTitle">
+  <button class="close" id="closeSide" aria-label="Cerrar detalles">×</button>
+  <img id="sideImg" src="" alt="">
+  <h3 id="sideTitle">Título del área</h3>
+  <p class="desc" id="sideDesc">Descripción breve del área.</p>
+  <div class="meta-row" id="sideMetaRow" aria-hidden="true">
+    <div><strong>Funciones:</strong> <span id="sideMeta">—</span></div>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:8px">
+    <button id="viewLarge" style="background:var(--accent);color:#fff;border:none;padding:10px 12px;border-radius:8px;cursor:pointer">Ver imagen en grande</button>
+    <button id="closeSideBtn" style="background:#fff;border:1px solid rgba(15,23,36,0.06);padding:10px 12px;border-radius:8px;cursor:pointer">Cerrar</button>
+  </div>
+</aside>
+
+<div class="viewer" id="viewer" aria-hidden="true" role="dialog" aria-modal="true">
+  <button id="vClose" aria-label="Cerrar visor" style="position:fixed;right:16px;top:16px;background:transparent;color:#fff;border:none;font-size:28px;cursor:pointer">✕</button>
+  <img id="vImg" src="" alt="">
+</div>
+
+<!-- ====== FOOTER ====== -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="Imagenes/IMRA-logo.png" alt="logo">
+        <div class="logo-text">
+          <div class="vertical-line"></div>
+          <span class="vertical-ipmra">I<br>P<br>M<br>R<br>A</span>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <h4>Síguenos en nuestra red social</h4>
+        <ul>
+          <li>
+            <a class="boton-facebook" href="https://www.facebook.com/profile.php?id=100064632464818" target="_blank">
+              <img src="Imagenes/facebook.png" alt="facebook" width="16px"> Visita nuestro Facebook
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Instituto Polivalente Modesto Rodas Alvarado - Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  const grid = document.getElementById('grid');
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const side = document.getElementById('side');
+  const overlay = document.getElementById('overlay');
+  const sideImg = document.getElementById('sideImg');
+  const sideTitle = document.getElementById('sideTitle');
+  const sideDesc = document.getElementById('sideDesc');
+  const sideMeta = document.getElementById('sideMeta');
+  const sideMetaRow = document.getElementById('sideMetaRow');
+  const closeSide = document.getElementById('closeSide');
+  const closeSideBtn = document.getElementById('closeSideBtn');
+  const viewLarge = document.getElementById('viewLarge');
+
+  const viewer = document.getElementById('viewer');
+  const vImg = document.getElementById('vImg');
+  const vClose = document.getElementById('vClose');
+
+  const filterSelect = document.getElementById('filterSelect');
+  const clearFilter = document.getElementById('clearFilter');
+  const chips = Array.from(document.querySelectorAll('.chip'));
+  const counter = document.getElementById('counter');
+
+  let currentIndex = -1;
+  let lastPositions = new Map();
+
+  function recordPositions() {
+    lastPositions.clear();
+    Array.from(grid.children).forEach(c => lastPositions.set(c, c.getBoundingClientRect()));
+  }
+  function playFLIP() {
+    Array.from(grid.children).forEach(c => {
+      const first = lastPositions.get(c);
+      const last = c.getBoundingClientRect();
+      if(!first) return;
+      const dx = first.left - last.left;
+      const dy = first.top - last.top;
+      if(dx || dy){
+        c.style.transform = `translate(${dx}px, ${dy}px)`;
+        requestAnimationFrame(()=> {
+          c.style.transition = `transform var(--anim-dur) cubic-bezier(.2,.9,.26,1), opacity var(--anim-dur)`;
+          c.style.transform = '';
+          c.addEventListener('transitionend', function te(){
+            c.style.transition = '';
+            c.removeEventListener('transitionend', te);
+          });
+        });
+      }
+    });
+  }
+
+  function applyFilter(value){
+  recordPositions();
+  const v = (value || 'all').toLowerCase();
+  let shown = 0;
+
+  const matches = [];
+  const others = [];
+  cards.forEach(card => {
+    const area = (card.dataset.area || '').toLowerCase();
+    const match = v === 'all' || area === v;
+    if(match) matches.push(card); else others.push(card);
+  });
+
+  const fragment = document.createDocumentFragment();
+  matches.forEach(c => fragment.appendChild(c));
+  others.forEach(c => fragment.appendChild(c));
+  grid.appendChild(fragment);
+
+  matches.forEach(c => {
+    c.classList.remove('hidden');
+    c.setAttribute('aria-hidden','false');
+    shown++;
+  });
+  others.forEach(c => {
+    c.classList.add('hidden');
+    c.setAttribute('aria-hidden','true');
+  });
+
+  requestAnimationFrame(() => playFLIP());
+  counter.textContent = `Mostrando ${shown} de ${cards.length}`;
+
+  // Scroll pero compensando la altura del header/controles para que no queden cubiertos
+  requestAnimationFrame(() => {
+    if(matches.length){
+      const first = matches[0];
+      // intenta tomar la altura del header o del contenedor de controles
+      const headerEl = document.querySelector('header');
+      const controlsEl = document.querySelector('.controls');
+      const headerHeight = (headerEl ? headerEl.offsetHeight : 0);
+      const controlsHeight = (controlsEl ? controlsEl.offsetHeight : 0);
+
+      // un pequeño padding extra para respirar
+      const extra = 12;
+
+      // preferimos mantener las controls visibles: situamos la primera tarjeta
+      // justo debajo de las controls (o debajo del header si no hay controls)
+      const offset = headerHeight + controlsHeight + extra;
+
+      const top = first.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+  });
+}
+
+
+  function setActiveChip(area){
+    chips.forEach(ch => {
+      const is = ch.dataset.area === area;
+      ch.classList.toggle('active', is);
+      ch.setAttribute('aria-pressed', is ? 'true' : 'false');
+    });
+  }
+
+  filterSelect.addEventListener('change', (e)=>{
+    const val = e.target.value;
+    setActiveChip(val);
+    applyFilter(val);
+  });
+
+  chips.forEach(ch => {
+    ch.addEventListener('click', () => {
+      const area = ch.dataset.area;
+      filterSelect.value = area;
+      setActiveChip(area);
+      applyFilter(area);
+      ch.focus();
+    });
+    ch.addEventListener('keydown', (ev) => { if(ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); ch.click(); } });
+  });
+
+  clearFilter.addEventListener('click', ()=>{
+    filterSelect.value = 'all';
+    setActiveChip('all');
+    applyFilter('all');
+    filterSelect.focus();
+  });
+
+ function openSide(idx){
+  const card = cards[idx];
+  if(!card || card.classList.contains('hidden')) return;
+  const img = card.querySelector('img');
+  sideImg.src = img.currentSrc || img.src;
+  sideImg.alt = img.alt || '';
+  sideTitle.textContent = card.dataset.caption || img.alt || '';
+
+  // Mostrar únicamente la descripción (data-meta)
+  const rawMeta = (card.dataset.meta || '').trim();
+  sideDesc.textContent = rawMeta;
+
+  // Asegurarnos que la fila de metadatos esté oculta y vacía
+  const metaRow = document.getElementById('sideMetaRow');
+  if(metaRow){
+    metaRow.style.display = 'none';
+    metaRow.setAttribute('aria-hidden','true');
+    metaRow.innerHTML = ''; // dejarla vacía por si quedó algo
+  }
+
+  side.classList.add('open');
+  side.setAttribute('aria-hidden','false');
+  overlay.classList.add('show');
+  overlay.style.opacity = '1';
+  overlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  currentIndex = idx;
+  side.focus();
+}
+
+  function closeSideFunc(){
+    side.classList.remove('open');
+    side.setAttribute('aria-hidden','true');
+    overlay.classList.remove('show');
+    overlay.style.opacity = '0';
+    overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    currentIndex = -1;
+  }
+  closeSide.addEventListener('click', closeSideFunc);
+  closeSideBtn.addEventListener('click', closeSideFunc);
+  overlay.addEventListener('click', closeSideFunc);
+
+  function openViewer(idx){
+    const card = cards[idx];
+    if(!card || card.classList.contains('hidden')) return;
+    const img = card.querySelector('img');
+    vImg.src = img.currentSrc || img.src;
+    vImg.alt = img.alt || '';
+    viewer.classList.add('open');
+    viewer.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeViewer(){
+    viewer.classList.remove('open');
+    viewer.setAttribute('aria-hidden','true');
+    vImg.src = '';
+    document.body.style.overflow = '';
+  }
+  vClose.addEventListener('click', closeViewer);
+  viewer.addEventListener('click', (e)=> { if(e.target === viewer) closeViewer(); });
+
+  grid.addEventListener('click', (e)=>{
+    const card = e.target.closest('.card');
+    if(!card) return;
+    const idx = cards.indexOf(card);
+    if(e.shiftKey) { openViewer(idx); } else { openSide(idx); }
+  });
+
+    cards.forEach((c, i) => {
+    // abrir side con Enter / Space cuando la tarjeta tiene foco
+    c.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' || ev.key === ' ') {
+        ev.preventDefault();
+        openSide(i);
+      }
+      // permitir abrir viewer con Shift+Enter como alternativa
+      if ((ev.key === 'Enter' || ev.key === ' ') && ev.shiftKey) {
+        ev.preventDefault();
+        openViewer(i);
+      }
+    });
+
+    // mejora de accesibilidad: indicar foco visible
+    c.addEventListener('focus', () => c.classList.add('focused'));
+    c.addEventListener('blur', () => c.classList.remove('focused'));
+  });
+
+  // navegación dentro del panel lateral: prev / next
+  function showIndex(idx) {
+    if (idx < 0 || idx >= cards.length) return;
+    // si la tarjeta está oculta, saltar hasta la siguiente visible
+    if (cards[idx].classList.contains('hidden')) {
+      // buscar siguiente visible hacia adelante
+      let forward = idx + 1;
+      while (forward < cards.length && cards[forward].classList.contains('hidden')) forward++;
+      if (forward < cards.length) return showIndex(forward);
+      // o buscar hacia atrás
+      let back = idx - 1;
+      while (back >= 0 && cards[back].classList.contains('hidden')) back--;
+      if (back >= 0) return showIndex(back);
+      return;
+    }
+    openSide(idx);
+    // mover foco a la tarjeta y hacer scroll si es necesario
+    cards[idx].focus();
+  }
+
+  // prev / next utilities
+  function nextIndex() {
+    if (currentIndex < 0) return;
+    let i = currentIndex + 1;
+    while (i < cards.length && cards[i].classList.contains('hidden')) i++;
+    if (i < cards.length) showIndex(i);
+  }
+  function prevIndex() {
+    if (currentIndex < 0) return;
+    let i = currentIndex - 1;
+    while (i >= 0 && cards[i].classList.contains('hidden')) i--;
+    if (i >= 0) showIndex(i);
+  }
+
+  // teclas globales: Escape cierra viewer/side, flechas cuando side abierto navegan
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape') {
+      if (viewer.classList.contains('open')) closeViewer();
+      else if (side.classList.contains('open')) closeSideFunc();
+    }
+    if (side.classList.contains('open')) {
+      if (ev.key === 'ArrowRight') { ev.preventDefault(); nextIndex(); }
+      if (ev.key === 'ArrowLeft')  { ev.preventDefault(); prevIndex(); }
+      if (ev.key === 'Home') { ev.preventDefault(); showIndex(0); }
+      if (ev.key === 'End')  { ev.preventDefault(); showIndex(cards.length - 1); }
+    }
+  });
+
+  // botones dentro del side
+  viewLarge.addEventListener('click', () => {
+    if (currentIndex >= 0) openViewer(currentIndex);
+  });
+
+  // permitir navegación con clics prev/next al hacer click en la imagen grande (ejemplo: clic derecho o área)
+  // (aquí solo se implementa doble-clic como 'next' para usuarios de ratón)
+  sideImg.addEventListener('dblclick', () => nextIndex());
+
+  // cuando se abre el viewer, permitir navegar entre imágenes con flechas
+  viewer.addEventListener('keydown', (ev) => {
+    if (ev.key === 'ArrowRight') { ev.preventDefault(); nextIndex(); }
+    if (ev.key === 'ArrowLeft')  { ev.preventDefault(); prevIndex(); }
+    if (ev.key === 'Escape')     { ev.preventDefault(); closeViewer(); }
+  });
+
+  // si se hace click en el overlay mientras el side está abierto, ya está manejado arriba.
+  // Asegurarnos que el side pueda navegarse con botones (añadir prev/next visibles opcionales)
+  // (Si quieres, puedo añadir flechas visibles en el side; por ahora usamos teclado y doble-clic.)
+
+  // FLIP: registrar posiciones iniciales y contador
+  recordPositions();
+  counter.textContent = `Mostrando ${cards.length} de ${cards.length}`;
+
+  // Inicializar chip activo "all"
+  setActiveChip('all');
+
+  // Manejar resize/scroll rápido para recalcular posiciones (para FLIP)
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => recordPositions(), 120);
+  });
+
+  // Recalcular posiciones antes de aplicar filtros (ya se hace en applyFilter)
+  // Pero también recalcular cuando imágenes cargan (para evitar saltos)
+  const imgs = Array.from(document.querySelectorAll('.card img'));
+  let imgsToLoad = imgs.length;
+  imgs.forEach(img => {
+    if (img.complete) {
+      imgsToLoad--;
+    } else {
+      img.addEventListener('load', () => {
+        imgsToLoad--;
+        if (imgsToLoad <= 0) {
+          recordPositions();
+        }
+      });
+      img.addEventListener('error', () => {
+        imgsToLoad--;
+        if (imgsToLoad <= 0) recordPositions();
+      });
+    }
+  });
+  // fallback por si las imágenes ya estaban cargadas
+  setTimeout(() => recordPositions(), 800);
+
+  // accesibilidad adicional: marcar rol/label en tarjetas
+  cards.forEach(c => {
+    const cap = c.dataset.caption || c.querySelector('img')?.alt || 'Área';
+    c.setAttribute('aria-label', cap);
+  });
+
+  // fin del IIFE
+})();
+// Cambio de color al hacer scroll
+window.addEventListener("scroll", function() {
+  const menu = document.getElementById("menu");
+  if (window.scrollY > 50) {
+    menu.classList.add("scrolled");
+  } else {
+    menu.classList.remove("scrolled");
+  }
+});
+
+// Submenús desplegables
+document.querySelectorAll(".alineacion-menu li > a").forEach(link => {
+  link.addEventListener("click", function(e) {
+    const parent = this.parentElement;
+    if (parent.querySelector(".submenu")) {
+      e.preventDefault();
+      parent.classList.toggle("show-submenu");
+    }
+  });
+});
+
+// Menú hamburguesa
+const hamburguesa = document.getElementById("hamburguesa");
+const menuOpciones = document.getElementById("menu-opciones");
+hamburguesa.addEventListener("click", () => {
+  hamburguesa.classList.toggle("active");
+  menuOpciones.classList.toggle("show");
+});
+
+</script>
+</body>
+</html>

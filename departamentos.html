@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Departamentos IPMRA</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #ffffff;
+      color: #212121;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      transition: background 1s ease;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: background 1s ease;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    nav.menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 1rem;
+      flex-wrap: wrap;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .alineacion-imra {
+      color: #ffffff!important;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      display: inline-block;
+    }
+
+    .alineacion-imra-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .alineacion-imra-logo a {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      font-weight:700;
+      font-size:1.1rem;
+      color:white;
+    }
+
+    .alineacion-logo img { border-radius:50%; }
+
+    /* ---------- VARIABLES DE COLOR (ajustables por tema) ---------- */
+    :root {
+      --menu-accent: #0078ff;
+      --menu-bg: rgba(0,0,0,0.2);
+      --menu-text: #ffffff;
+      --submenu-bg: #ffffff; /* fondo blanco por defecto */
+      --submenu-text: #333333;
+      --submenu-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    /* ===== MENÚ PRINCIPAL ===== */
+    .alineacion-menu {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .alineacion-menu.mobile-hidden {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .alineacion-menu > li {
+      position: relative;
+    }
+
+    .alineacion-menu > li > a {
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--menu-text);
+      padding: 8px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.25s ease, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .alineacion-menu > li > a:hover {
+      background-color: rgba(0, 0, 0, 0.25);
+      color: #ffffff !important;
+    }
+
+    .arrow {
+      display: inline-block;
+      margin-left: 5px;
+      transition: transform 0.2s ease;
+      font-size: 0.8rem;
+    }
+
+    /* ---------- SUBMENÚ ---------- */
+    .submenu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: var(--submenu-bg); /* fondo blanco */
+      border-radius: 8px;
+      list-style: none;
+      padding: 0.5rem 0;
+      min-width: 200px;
+      z-index: 120;
+      box-shadow: var(--submenu-shadow);
+      transition: background 0.4s ease, opacity 0.25s;
+      opacity: 0;
+      transform-origin: top left;
+      transform: translateY(-6px);
+      pointer-events: none;
+    }
+
+    .submenu-container.show-submenu > .submenu {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      background: var(--submenu-bg);
+      color: #333333;
+    }
+
+    .submenu li a {
+      color: #333333; /* texto inicial oscuro */
+      display: block;
+      padding: 10px 14px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .submenu li:last-child a { border-bottom: none; }
+
+    .submenu li a:hover {
+      /* adoptará el color del departamento activo mediante JS */
+      background-color: var(--menu-accent);
+      color: #fff;
+    }
+
+    .submenu-container.show-submenu > a .arrow {
+      transform: rotate(180deg);
+    }
+
+    .alineacion-menu li.active > a {
+      background-color: var(--menu-accent);
+      color: #fff;
+    }
+
+    .boton-creditos a {
+      background: #ffeb3b;
+      color: #fcfbfb !important;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .boton-creditos a:hover {
+      background: #ffeb3b;
+    }
+
+    /* ===== TITULO ===== */
+    h1.btn-departamentos {
+      margin-top: 40px;
+      font-size: 2rem;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: color 0.8s ease;
+    }
+
+    /* ===== CONTENEDOR ===== */
+    .contenedor {
+      display: flex;
+      width: 90%;
+      max-width: 1300px;
+      margin-top: 60px;
+      gap: 50px;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    /* ===== RUEDA ===== */
+    .rueda-container {
+      position: relative;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 1s ease, background 0.6s ease;
+      flex-shrink: 0;
+    }
+
+    .departamento {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #212121;
+      transition: all 0.6s ease;
+      transform-origin: center;
+      cursor: pointer;
+      padding: 6px;
+    }
+
+    .departamento:hover,
+    .departamento.activo {
+      transform: scale(1.08);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+      color: #fff;
+    }
+
+    /* ===== PANEL DE INFORMACIÓN ===== */
+    .info-panel {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(2px);
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      animation: fadeIn 0.8s ease;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    .info-panel h2 {
+      font-size: 2rem;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .info-panel p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    .personal-lista {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .persona {
+      background: rgba(252, 250, 250, 0.05);
+      padding: 10px 15px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .persona:hover {
+      background: rgba(255, 235, 59, 0.8);
+      color: #fefbfb;
+      transform: translateY(-3px);
+    }
+
+    .cargo {
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+      color: #fcf9f9;
+    }
+
+    .nombre {
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: #fdfdfd;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== BOTONES DE CONTROL ===== */
+    .controles {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-control {
+      background: rgba(255, 235, 59, 0.8);
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+
+    .btn-control:hover {
+      background: #fff176;
+    }
+
+    .btn-control svg {
+      width: 24px;
+      height: 24px;
+      stroke: #ffffff;
+    }
+
+    /* ===== FOOTER ===== */
+   footer {
+  width: 100%;
+  text-align: left;
+  margin-top: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+  transition: background 1s ease;
+  color: #212121;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 5%;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 150px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-logo img {
+  width: 100px;
+}
+
+.logo-text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vertical-line {
+  width: 2px;
+  height: 100px;
+  background: #ffeb3b;
+}
+
+.vertical-ipmra {
+  line-height: 1.2;
+  color: #ffeb3b;
+  font-weight: 700;
+  letter-spacing: 3px;
+  display: inline-block;
+  text-align: center;
+}
+
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.linea-separadora {
+  width: 300px;
+  height: 2px;
+  background: #ffffff;
+  margin: 0;
+}
+
+.boton-facebook {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  border: 2px solid rgba(0,0,0,0.2);
+  background: rgba(255, 235, 59, 0.8);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+  cursor: pointer;
+}
+
+.boton-facebook img {
+  margin-right: 5px;
+}
+
+.boton-facebook:hover {
+  background: rgba(255, 235, 59, 1);
+  transform: scale(1.05);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 1rem 0;
+  color: #fcfcfc;
+  width: 100%;
+}
+
+.footer-line {
+  width: 100%;
+  height: 1px;
+  background: rgba(253, 251, 251, 0.2);
+  margin: 0 auto 10px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .contenedor {
+    flex-direction: column;
+    align-items: center;
+  }
+  .rueda-container {
+    width: 350px;
+    height: 350px;
+  }
+  .info-panel {
+    width: 90%;
+  }
+
+  .alineacion-menu {
+    display: none;
+    width: 100%;
+  }
+  .alineacion-menu.show {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(255,255,255,0.03);
+    margin-top: 8px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .alineacion-menu > li > a {
+    padding: 12px 14px;
+    border-radius: 8px;
+  }
+
+  nav.menu {
+    padding: 0.6rem 1rem;
+  }
+
+  #hamburguesa {
+    display: inline-flex;
+  }
+}
+
+#hamburguesa {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+}
+#hamburguesa .bar {
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  display: block;
+  margin: 3px 0;
+  transition: transform 0.25s, opacity 0.25s;
+}
+#hamburguesa.active .bar:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+#hamburguesa.active .bar:nth-child(2) { opacity: 0; }
+#hamburguesa.active .bar:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+  </style>
+</head>
+
+<body>
+  <!-- HEADER (reemplazado por el header que me diste, pero adaptado para mantener los IDs y comportamiento JS) -->
+  <header id="header">
+    <nav class="menu" id="menu">
+      <div class="alineacion-imra-logo">
+        <a href="inicio.html">
+          <span class="alineacion-logo">
+            <img src="Imagenes/IMRA-logo.png" alt="logo" width="40px" />
+          </span>
+          <span class="alineacion-imra">IPMRA</span>
+        </a>
+
+        <!-- Mantengo el botón de hamburguesa con el id y estructura que usa tu JS -->
+        <button id="hamburguesa" aria-label="Abrir menú">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+
+      <!-- Menú principal (se copió la estructura del header que me diste, añadiendo "Instalaciones" en el submenu) -->
+      <ul class="alineacion-menu" id="menu-opciones">
+        <li><a href="inicio.html">Inicio</a></li>
+
+        <li class="submenu-container">
+          <a href="#" class="submenu-toggle">Nosotros <span class="arrow">▼</span></a>
+          <ul class="submenu">
+            <li><a href="nuestra-identidad.html">Nuestra Identidad</a></li>
+            <li><a href="departamentos.html">Departamentos</a></li>
+            <li><a href="maestros.html">Maestros</a></li>
+            <li><a href="instalaciones.html">Instalaciones</a></li>
+          </ul>
+        </li>
+
+        <li><a href="carreras.html">Oferta Académica</a></li>
+        <li><a href="matriculas.html">Matrículas</a></li>
+        <li class="boton-creditos"><a href="creditos.html">Créditos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- TITULO -->
+  <h1 class="btn-departamentos">DEPARTAMENTOS DEL IPMRA</h1>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="contenedor">
+    <div class="rueda-container rotar" id="rueda">
+      <div class="departamento activo" data-info="dirección" style="--angle: 0deg">DIRECCIÓN</div>
+      <div class="departamento" data-info="secretaría" style="--angle: 60deg">SECRETARÍA</div>
+      <div class="departamento" data-info="académica" style="--angle: 120deg">COORD. ACADÉMICA</div>
+      <div class="departamento" data-info="consejería" style="--angle: 180deg">CONSEJERÍA</div>
+      <div class="departamento" data-info="orientación" style="--angle: 240deg">ORIENTACIÓN</div>
+      <div class="departamento" data-info="administración" style="--angle: 300deg">ADMINISTRACIÓN</div>
+    </div>
+
+    <div class="info-panel" id="info-panel">
+    </div>
+  </div>
+
+  <!-- CONTROLES -->
+  <div class="controles">
+    <button class="btn-control" id="prev" aria-label="Anterior">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 8 8 12 12 16"/>
+      </svg>
+    </button>
+
+    <button class="btn-control" id="next" aria-label="Siguiente">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 8 16 12 12 16"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="Imagenes/IMRA-logo.png" alt="logo">
+        <div class="logo-text">
+          <div class="vertical-line"></div>
+          <span class="vertical-ipmra">I<br>P<br>M<br>R<br>A</span>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <h4>Síguenos en nuestras redes sociales</h4>
+        <div class="linea-separadora"></div>
+        <a class="boton-facebook" href="#" target="_blank">
+          <img src="Imagenes/facebook.png" alt="facebook"> Visita nuestro Facebook
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-line"></div>
+      <p>© 2025 Instituto Polivalente Modesto Rodas Alvarado - Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    const ruedaContainer = document.querySelector(".rueda-container");
+    const departamentos = document.querySelectorAll(".departamento");
+    const infoPanel = document.getElementById("info-panel");
+    const header = document.getElementById("header");
+    const footer = document.getElementById("footer");
+    const logoIPMRA = document.querySelector(".alineacion-imra");
+    const tituloDepartamentos = document.querySelector(".btn-departamentos");
+    const menuOpciones = document.getElementById("menu-opciones");
+    const hamburguesa = document.getElementById("hamburguesa");
+
+    let index = 0;
+    const total = departamentos.length;
+
+    const infoDepartamentos = {
+      dirección: {
+        titulo: "DIRECCIÓN",
+        texto: "La Dirección coordina todas las actividades institucionales, garantiza el cumplimiento de los objetivos educativos y promueve el desarrollo académico y humano de la comunidad estudiantil.",
+        personal: [
+          { titulo: "Director(a)", nombre: "Mara Ondina Lopez Fonseca" },
+          { titulo: "Sub Director", nombre: "Fredy Orlando Turcios Castillo" },
+          { titulo: "Sub Directora", nombre: "Irma Esperanza Martinez Hernándes" }
+        ]
+      },
+      secretaría: {
+        titulo: "SECRETARÍA",
+        texto: "Gestiona documentación académica, registros de estudiantes y brinda apoyo administrativo esencial para el funcionamiento institucional.",
+        personal: [
+          { titulo: "Secretario(a)", nombre: "Flor Maria Zelaya Ramos" },
+          { titulo: "Asistente", nombre: "Nancy Gabriela Cruz Garcia" },
+          { titulo: "Asistente", nombre: "Indira Aramita Rivera Maradiaga" }
+        ]
+      },
+      académica: {
+        titulo: "COORDINACIÓN ACADÉMICA",
+        texto: "Organiza los horarios, supervisa la calidad educativa y apoya a los docentes en el proceso de enseñanza-aprendizaje.",
+        personal: [
+          { titulo: "Coordinador(a) Académica", nombre: "Francys Johana Zambrano Guevara" }
+        ]
+      },
+      consejería: {
+        titulo: "CONSEJERÍA",
+        texto: "Ofrece acompañamiento emocional y social a los estudiantes, fomentando la convivencia y el bienestar estudiantil.",
+        personal: [
+          { titulo: "Consejero(a) de Educandos", nombre: "Ricardo Perez Giron" },
+          { titulo: "Consejero(a) de Estudiantes", nombre: "Nelbi Suyapa Murillo Perez" }
+        ]
+      },
+      orientación: {
+        titulo: "ORIENTACIÓN",
+        texto: "Guía a los estudiantes en la toma de decisiones vocacionales, académicas y personales para su desarrollo integral.",
+        personal: [
+          { titulo: "Jefe(a) de Departamento", nombre: "Oscar Isidro Herrera Avelar" },
+          { titulo: "Orientador(a) Social", nombre: "Carina Lizeth Dueñas Lanza" },
+          { titulo: "Orientadora Psicológica", nombre: "Gloria Victoria Mejia Turcios" }
+        ]
+      },
+      administración: {
+        titulo: "ADMINISTRACIÓN",
+        texto: "Supervisa los recursos financieros, materiales y humanos del instituto, asegurando un ambiente óptimo para el aprendizaje.",
+        personal: [
+          { titulo: "Auxiliar de Contabilidad", nombre: "Jorge Odalis Duarte Lanza" }
+        ]
+      }
+    };
+
+    const colores = {
+      dirección: "#81c784",
+      secretaría: "#ffab73",
+      académica: "#9c4dcc",
+      consejería: "#ef5350",
+      orientación: "#ffb74d",
+      administración: "#4dd0e1"
+    };
+
+    function distribuirRueda() {
+      departamentos.forEach(function(dep, i) {
+        const ang = (360 / total) * i;
+        dep.style.transform = "rotate(" + ang + "deg) translate(160px) rotate(" + (-ang) + "deg)";
+      });
+    }
+
+    function actualizarRueda() {
+      departamentos.forEach(function(dep, i) {
+        const ang = (360 / total) * i;
+        dep.style.transform = "rotate(" + (ang + index * (360 / total)) + "deg) translate(160px) rotate(" + (-ang - index * (360 / total)) + "deg)";
+        if (i === index) {
+          dep.classList.add("activo");
+          dep.style.backgroundColor = colores[dep.dataset.info];
+          dep.style.color = "#fff";
+        } else {
+          dep.classList.remove("activo");
+          dep.style.backgroundColor = colores[dep.dataset.info] + "aa";
+          dep.style.color = "#fff";
+        }
+      });
+
+      const info = infoDepartamentos[departamentos[index].dataset.info];
+      let personalHTML = "";
+      info.personal.forEach(function(p) {
+        personalHTML += "<div class='persona' style='background-color:" + colores[departamentos[index].dataset.info] + "cc;color:#fff;'>"; 
+        personalHTML += "<span class='cargo'>" + p.titulo + "</span>";
+        personalHTML += "<span class='nombre'>" + p.nombre + "</span>";
+        personalHTML += "</div>";
+      });
+
+      infoPanel.innerHTML = "<h2>" + info.titulo + "</h2>" +
+                            "<p>" + info.texto + "</p>" +
+                            "<div class='personal-lista'>" + personalHTML + "</div>";
+
+      const colorActual = colores[departamentos[index].dataset.info];
+
+      infoPanel.style.background = colorActual + "aa";
+      infoPanel.style.color = "#fff";
+      ruedaContainer.style.background = colorActual + "33";
+      header.style.background = colorActual;
+      header.style.color = "#fff";
+      footer.style.background = colorActual;
+      footer.style.color = "#fff";
+      if (logoIPMRA) { logoIPMRA.style.color = "#fff"; }
+      if (tituloDepartamentos) { tituloDepartamentos.style.color = "#fff"; }
+
+      document.documentElement.style.setProperty('--menu-accent', colorActual);
+    }
+
+    document.getElementById("next").addEventListener("click", function() {
+      index = (index + 1) % total;
+      actualizarRueda();
+    });
+
+    document.getElementById("prev").addEventListener("click", function() {
+      index = (index - 1 + total) % total;
+      actualizarRueda();
+    });
+
+    departamentos.forEach(function(dep, i) {
+      dep.addEventListener("click", function() {
+        index = i;
+        actualizarRueda();
+      });
+    });
+
+    distribuirRueda();
+    actualizarRueda();
+
+    window.addEventListener("scroll", function() {
+      const menu = document.getElementById("menu");
+      if (window.scrollY > 50) {
+        menu.classList.add("scrolled");
+      } else {
+        menu.classList.remove("scrolled");
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggles = document.querySelectorAll(".submenu-toggle");
+
+      toggles.forEach(toggle => {
+        toggle.addEventListener("click", e => {
+          e.preventDefault();
+          const li = toggle.closest(".submenu-container");
+          document.querySelectorAll(".submenu-container.show-submenu").forEach(item => {
+            if (item !== li) item.classList.remove("show-submenu");
+          });
+          li.classList.toggle("show-submenu");
+        });
+      });
+
+      document.addEventListener("click", e => {
+        if (!e.target.closest(".submenu-container")) {
+          document.querySelectorAll(".submenu-container.show-submenu").forEach(item =>
+            item.classList.remove("show-submenu")
+          );
+        }
+      });
+    });
+
+    (function() {
+      if (!hamburguesa || !menuOpciones) return;
+      hamburguesa.addEventListener("click", () => {
+        hamburguesa.classList.toggle("active");
+        menuOpciones.classList.toggle("show");
+      });
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) {
+          menuOpciones.classList.remove('show');
+          hamburguesa.classList.remove('active');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
