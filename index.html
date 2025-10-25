@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instituto Modesto Rodas Alvarado</title>
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav class="menu" id="menu">
+      <div class="alineacion-imra-logo">
+        <a href="inicio.html">
+          <span class="alineacion-logo"><img src="Imagenes/IMRA-logo.png" alt="logo" width="40px"></span>
+          <span class="alineacion-imra">IPMRA</span>
+        </a>
+        <!-- Hamburguesa -->
+        <div class="hamburguesa" id="hamburguesa">
+          <span></span><span></span><span></span>
+        </div>
+        <!-- Menú -->
+        <ul class="alineacion-menu" id="menu-opciones">
+          <li><a href="inicio.html">Inicio</a></li>
+          <li>
+            <a href="#">Nosotros <span class="arrow">▼</span></a>
+            <ul class="submenu">
+              <li><a href="nuestra-identidad.html">Nuestra Identidad</a></li>
+              <li><a href="departamentos.html">Departamentos</a></li>
+              <li><a href="maestros.html">Maestros</a></li>
+              <li><a href="instalaciones.html">Instalaciones</a></li>
+            </ul>
+          </li>
+          <li><a href="carreras.html">Oferta Académica</a></li>
+          <li><a href="matriculas.html">Matrículas</a></li>
+          <li class="boton-creditos"><a href="creditos.html">Créditos</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ====== VIDEO DE BIENVENIDA ====== -->
+  <section class="video-container">
+    <video src="videos/naturaleza.mp4" muted loop autoplay playsinline preload="auto">
+      Tu navegador no soporta el elemento <code>video</code>.
+    </video>
+    <h1>¡BIENVENIDOS!</h1>
+    <p>Al instituto más influyente de toda la margen izquierda.</p>
+  </section>
+
+  <!-- ====== NUESTRA INSTITUCION ====== -->
+  <section class="institucion">
+    <h2>Nuestra Institución</h2>
+    <p>
+      El Instituto Polivalente Modesto Rodas Alvarado se distingue por formar alumnos con mente esclarecida y corazón recto. 
+      A través de un sistema educativo que exige disciplina, constancia y respeto mutuo, forjamos una cultura donde el esfuerzo tiene valor, 
+      el orden es herramienta, y los principios éticos son guía constante. Aquí no basta con aprender; buscamos que los estudiantes 
+      interioricen los valores de integridad, responsabilidad y servicio, para que el conocimiento que adquieren sea instrumento de 
+      transformación personal y social.
+    </p>
+  </section>
+
+  <!-- ====== VIDEO INSTALACIONES ====== -->
+  <section class="video-instalaciones">
+    <button>¡Conoce Nuestra Oferta Académica!</button>
+    <video src="videos/IPMRA.mp4" muted loop autoplay playsinline preload="auto">
+      Tu navegador no soporta el elemento <code>video</code>.
+    </video>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="Imagenes/IMRA-logo.png" alt="logo">
+        <div class="logo-text">
+          <div class="vertical-line"></div>
+          <span class="vertical-ipmra">I<br>P<br>M<br>R<br>A</span>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <h4>Síguenos en nuestra red social</h4>
+        <ul>
+          <li>
+            <a class="boton-facebook" href="https://www.facebook.com/profile.php?id=100064632464818" target="_blank">
+              <img src="Imagenes/facebook.png" alt="facebook" width="16px"> Visita nuestro Facebook
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Instituto Polivalente Modesto Rodas Alvarado - Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="menu-desplegable.js"></script>
+  <script>
+    // Intento programático de reproducir videos y registrar errores (diagnóstico)
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('video').forEach(v => {
+        try { v.playsInline = true; } catch(e){}
+        const p = v.play();
+        if(p && p.catch){
+          p.catch(err => console.warn('No se pudo reproducir el video:', v.src, err));
+        }
+      });
+    });
+  </script>
+</body>
+</html>
